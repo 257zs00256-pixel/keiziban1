@@ -66,38 +66,26 @@ const server = http.createServer((req, res) => {
       html += `
       <div class="post">
         <strong>${escapeHtml(post.name)}</strong>
-<small class="time" data-time="${post.timestamp}"></small>
+<small>${new Date(post.timestamp).toLocaleString('ja-JP', {
+  timeZone: 'Asia/Tokyo'
+})}</small>
         <p>${escapeHtml(post.message)}</p>
       </div>
       `;
     });
 
     html += `
-    <script>
-function updateTimes() {
-  document.querySelectorAll('.time').forEach(el => {
-    const timestamp = Number(el.dataset.time);
-    const seconds = Math.floor((Date.now() - timestamp) / 1000);
-
-    let text = '';
-
-    if (seconds < 60) {
-      text = seconds + '秒前';
-    } else if (seconds < 3600) {
-      text = Math.floor(seconds / 60) + '分前';
-    } else if (seconds < 86400) {
-      text = Math.floor(seconds / 3600) + '時間前';
-    } else {
-      text = Math.floor(seconds / 86400) + '日前';
-    }
-
-    el.textContent = text;
-  });
-}
-
-updateTimes();
-setInterval(updateTimes, 1000);
-</script>
+<div class="post">
+  <strong>${escapeHtml(post.name)}</strong>
+  <small>
+    ${new Date(post.timestamp).toLocaleString('ja-JP', {
+      timeZone: 'Asia/Tokyo'
+    })}
+  </small>
+  <br>
+  <small class="time" data-time="${post.timestamp}"></small>
+  <p>${escapeHtml(post.message)}</p>
+</div>
     </body>
     </html>
     `;
