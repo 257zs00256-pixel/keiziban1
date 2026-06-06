@@ -75,17 +75,6 @@ const server = http.createServer((req, res) => {
     });
 
     html += `
-<div class="post">
-  <strong>${escapeHtml(post.name)}</strong>
-  <small>
-    ${new Date(post.timestamp).toLocaleString('ja-JP', {
-      timeZone: 'Asia/Tokyo'
-    })}
-  </small>
-  <br>
-  <small class="time" data-time="${post.timestamp}"></small>
-  <p>${escapeHtml(post.message)}</p>
-</div>
     </body>
     </html>
     `;
